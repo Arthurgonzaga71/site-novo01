@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Principal</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Estilos adicionais específicos podem ser colocados aqui */
+        body {
+            padding-top: 5rem; /* Para dar espaço ao navbar */
+        }
+
+        .scroll-down {
+            position: absolute;
+            bottom: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        .footer {
+            text-align: center;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1.2rem;
+            margin-top: 50px;
+            color: #555;
+        }
+
+        .footer a {
+            color: #555;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        .arrow {
+            font-size: 3rem;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <a class="navbar-brand" href="#">Meu Aplicativo</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto">
+                <% menuOptions.forEach(option => { %>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<%= option.url %>"><%= option.name %></a>
+                    </li>
+                <% }); %>
+            </ul>
+        </div>
+    </nav>
+
+    <main role="main" class="container">
+        <div class="starter-template text-center mt-5">
+            <h1>Bem-vindo ao Meu Aplicativo</h1>
+            <p class="lead">Escolha uma opção no menu acima.</p>
+            <div class="arrow text-center">
+                <span class="scroll-down">&#8595;</span>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>Criado pelo Dev <a href="https://www.linkedin.com/in/arthur-gonzaga-42b989257/" target="_blank">Arthur Gonzaga</a></p>
+    </footer>
+
+    <!-- JavaScript do Bootstrap (opcional, mas recomendado para alguns componentes) -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.querySelector('.scroll-down').addEventListener('click', function() {
+            window.scrollTo({
+                top: document.body.scrollHeight,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+</html>

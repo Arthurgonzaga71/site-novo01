@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Aniversariante</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        * { padding: 0; margin: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { width: 100%; height: 100vh; display: flex; justify-content: center; align-items: center; background: #0f0c25; }
+        .container { width: 80%; max-width: 1200px; height: auto; display: flex; box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.221); background: #fff; border-radius: 10px; overflow: hidden; }
+        .form-imagem { width: 50%; display: flex; justify-content: center; align-items: center; background: #fde3a7d7; padding: 2rem; }
+        .form-imagem img { max-width: 100%; height: auto; }
+        .form { width: 50%; display: flex; justify-content: center; align-items: center; flex-direction: column; padding: 2rem; }
+        .form-header { margin-bottom: 1.5rem; text-align: center; }
+        .form-header h1 { position: relative; }
+        .form-header h1::after { content: ''; display: block; width: 5rem; height: 0.3rem; background-color: #0f0c25; margin: 0.5rem auto 0; border-radius: 10px; }
+        .input-group { width: 100%; }
+        .input-box { width: 100%; display: flex; flex-direction: column; margin-bottom: 1rem; }
+        .input-box input { margin: 0.5rem 0; padding: 0.8rem 1rem; border: 1px solid #ccc; border-radius: 5px; box-shadow: 1px 1px 6px #0000001c; transition: background-color 0.3s; }
+        .input-box input:hover { background-color: #f0f0f0; }
+        .input-box input:focus-visible { outline: 1px solid #0f0c25; }
+        .input-box label { font-size: 0.875rem; font-weight: 600; color: #333; }
+        .form-footer { width: 100%; display: flex; justify-content: center; align-items: center; }
+        .form-footer input { padding: 0.8rem 2rem; border: none; border-radius: 5px; background: #fde3a7d7; color: #0f0c25; font-weight: 600; transition: background-color 0.3s; cursor: pointer; }
+        .form-footer input:hover { background-color: #fdde90d7; }
+        .error-message { color: red; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-imagem">
+            <img src="img/capa-confirm.jpg" alt="Imagem de Capa">
+        </div>
+        <div class="form">
+            <div class="form-header">
+                <h1>Login Aniversariante</h1>
+                <% if (error) { %>
+                    <p class="error-message"><%= error %></p>
+                <% } %>
+            </div>
+            <form action="/login-aniversariante" method="post">
+                <div class="input-group">
+                    <div class="input-box">
+                        <label for="username">Usuário</label>
+                        <input type="text" id="username" name="username" placeholder="Insira seu usuário" required>
+                    </div>
+                    <div class="input-box">
+                        <label for="password">Senha</label>
+                        <input type="password" id="password" name="password" placeholder="Insira sua senha" required>
+                    </div>
+                </div>
+                <div class="form-footer">
+                    <input type="submit" value="Entrar">
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

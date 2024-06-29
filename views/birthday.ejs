@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parabéns! Feliz Aniversário!</title>
+    <style>
+        body {
+            background-color: #0f0c25;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0; /* Remover margens padrão */
+            overflow: hidden; /* Evita que o confete apareça fora da tela */
+        }
+
+        .content {
+            text-align: center;
+            position: relative; /* Para garantir que o conteúdo fique centralizado */
+            z-index: 1; /* Para garantir que o conteúdo fique sobre os confetes */
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            line-height: 1; /* Garante que a linha ocupe apenas a altura do texto */
+        }
+
+        p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .confetti-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0; /* Confetes ficam atrás do conteúdo */
+            overflow: hidden; /* Evita que os confetes apareçam fora da tela */
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #f0f;
+            transform: rotate(45deg);
+            animation: confetti-fall 1s ease-out infinite;
+            pointer-events: none; /* Evita que os confetes interfiram com eventos de mouse */
+        }
+
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-100vh) rotate(45deg);
+            }
+            100% {
+                transform: translateY(100vh) rotate(45deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="confetti-container">
+        <div class="confetti"></div>
+    </div>
+    <div class="content">
+        <h1>Parabéns!</h1>
+        <p>Sua presença foi confirmada com sucesso!</p>
+    </div>
+</body>
+</html>

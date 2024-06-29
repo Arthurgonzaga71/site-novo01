@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Aniversariante</title>
+    <style>
+        /* Estilos CSS para a página Dashboard do aniversariante */
+        body {
+            background-color: #fde3a7; /* Cor de fundo suave */
+            color: #333; /* Cor do texto principal */
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background-color: #6b63ff; /* Cor de fundo do cabeçalho */
+            color: #fff; /* Cor do texto do cabeçalho */
+            padding: 1rem;
+            text-align: center;
+            margin-bottom: 2rem; /* Espaço abaixo do cabeçalho */
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #fff; /* Fundo do conteúdo */
+            border-radius: 10px; /* Borda arredondada */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 2rem;
+        }
+
+        th, td {
+            padding: 1rem; /* Espaçamento interno das células */
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #6b63ff; /* Cor de fundo do cabeçalho da tabela */
+            color: #fff; /* Cor do texto do cabeçalho da tabela */
+            font-weight: bold;
+        }
+
+        .number-cell {
+            font-weight: bold;
+            padding-right: 1rem;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f0f0f0; /* Cor de fundo das linhas pares */
+        }
+
+        tr:hover {
+            background-color: #ddd; /* Cor de fundo ao passar o mouse */
+        }
+
+        .add-form {
+            width: 100%;
+            max-width: 600px;
+            margin-top: 2rem;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .update-form {
+            display: none; /* Formulário de atualização inicialmente oculto */
+        }
+
+        .update-form.active {
+            display: block; /* Exibir formulário de atualização quando ativo */
+        }
+
+        .form-header {
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .form-header h2 {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .input-box {
+            margin-bottom: 1rem;
+        }
+
+        .input-box label {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .input-box input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .input-box button {
+            margin-top: 1rem;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            background-color: #6b63ff;
+            color: #fff;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .input-box button:hover {
+            background-color: #524bd4;
+        }
+
+        .update-button {
+            margin-left: 0.5rem;
+            background-color: #f0ad4e;
+            padding: 0.75rem 1.5rem;
+        }
+
+        .update-button:hover {
+            background-color: #ee9f3e;
+        }
+
+        .delete-button {
+            background-color: #d9534f;
+            padding: 0.75rem 1.5rem;
+        }
+
+        .delete-button:hover {
+            background-color: #c9302c;
+        }
+
+        /* Estilos para tornar a página responsiva */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            table, th, td {
+                font-size: 0.9rem;
+                padding: 0.5rem;
+            }
+
+            .input-box input {
+                padding: 0.5rem;
+            }
+
+            .input-box button {
+                padding: 0.5rem 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                padding: 0.5rem;
+                margin-bottom: 1rem;
+            }
+
+            table, th, td {
+                font-size: 0.8rem;
+                padding: 0.25rem;
+            }
+
+            .input-box label {
+                font-size: 0.9rem;
+            }
+
+            .input-box input {
+                padding: 0.5rem;
+                font-size: 0.9rem;
+            }
+
+            .input-box button {
+                padding: 0.5rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Estilos para o footer */
+        .footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            cursor: pointer; /* Define o cursor como uma seta para baixo */
+        }
+
+        .footer a {
+            color: white;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Lista de Convidados</h1>
+    </div>
+    <div class="container">
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nome</th>
+                    <th>Sobrenome</th>
+                    <th>Celular</th>
+                    <th>Email</th>
+                    <th>Acompanhantes</th>
+                    <th>Data e Hora</th>
+                    <th>Ações</th> <!-- Nova coluna para botões de ação -->
+                </tr>
+            </thead>
+            <tbody>
+                <% confirmations.forEach((confirmation, index) => { %>
+                    <tr>
+                        <td><%= index + 1 %></td>
+                        <td><%= confirmation.firstname %></td>
+                        <td><%= confirmation.lastname %></td>
+                        <td><%= confirmation.phone %></td>
+                        <td><%= confirmation.email %></td>
+                        <td><%= confirmation.guests %></td>
+                        <td><%= formatDateTime(confirmation.created_at) %></td>
+                        <td>
+                            <button class="update-button" onclick="showUpdateForm(<%= confirmation.id %>)">Atualizar</button>
+                            <form id="deleteForm_<%= confirmation.id %>" action="/delete/<%= confirmation.id %>" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir esta entrada?');">
+                                <button class="delete-button" type="submit">Excluir</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <!-- Formulário de atualização oculto para cada entrada -->
+                    <tr class="update-form" id="updateForm_<%= confirmation.id %>">
+                        <td></td>
+                        <td colspan="6">
+                            <form action="/update/<%= confirmation.id %>" method="POST">
+                                <div class="form-header">
+                                    <h2>Atualizar Informações</h2>
+                                </div>
+                                <div class="input-box">
+                                    <label for="firstname_<%= confirmation.id %>">Primeiro Nome</label>
+                                    <input id="firstname_<%= confirmation.id %>" type="text" name="firstname" value="<%= confirmation.firstname %>" required>
+                                </div>
+                                <div class="input-box">
+                                    <label for="lastname_<%= confirmation.id %>">Sobrenome</label>
+                                    <input id="lastname_<%= confirmation.id %>" type="text" name="lastname" value="<%= confirmation.lastname %>" required>
+                                </div>
+                                <div class="input-box">
+                                    <label for="phone_<%= confirmation.id %>">Celular</label>
+                                    <input id="phone_<%= confirmation.id %>" type="tel" name="phone" value="<%= confirmation.phone %>" required>
+                                </div>
+                                <div class="input-box">
+                                    <label for="email_<%= confirmation.id %>">Email</label>
+                                    <input id="email_<%= confirmation.id %>" type="email" name="email" value="<%= confirmation.email %>" required>
+                                </div>
+                                <div class="input-box">
+                                    <label for="guests_<%= confirmation.id %>">Número de Acompanhantes</label>
+                                    <input id="guests_<%= confirmation.id %>" type="number" name="guests" value="<%= confirmation.guests %>" required>
+                                </div>
+                                <div class="input-box">
+                                    <button type="submit" class="update-button">Atualizar</button>
+                                    <button type="button" class="delete-button" onclick="hideUpdateForm(<%= confirmation.id %>)">Cancelar</button>
+                                </div>
+                            </form>
+                        </td>
+                        <td></td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Formulário para adicionar nova entrada -->
+    <div class="add-form">
+        <form action="/add" method="POST">
+            <div class="form-header">
+                <h2>Adicionar Novo Convidado</h2>
+            </div>
+            <div class="input-box">
+                <label for="firstname">Primeiro Nome</label>
+                <input id="firstname" type="text" name="firstname" placeholder="Digite o primeiro nome" required>
+            </div>
+            <div class="input-box">
+                <label for="lastname">Sobrenome</label>
+                <input id="lastname" type="text" name="lastname" placeholder="Digite o sobrenome" required>
+            </div>
+            <div class="input-box">
+                <label for="phone">Celular</label>
+                <input id="phone" type="tel" name="phone" placeholder="(xx) xxxx-xxxx" required>
+            </div>
+            <div class="input-box">
+                <label for="email">Email</label>
+                <input id="email" type="email" name="email" placeholder="Digite o email" required>
+            </div>
+            <div class="input-box">
+                <label for="guests">Número de Acompanhantes</label>
+                <input id="guests" type="number" name="guests" placeholder="Quantos acompanhantes?" required>
+            </div>
+            <div class="input-box">
+                <button type="submit" class="update-button">Adicionar</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Footer personalizado -->
+    <footer class="footer">
+        Criado pelo Dev Arthur Gonzaga &#8595; <!-- Seta para baixo -->
+        <a href="https://www.linkedin.com/in/arthur-gonzaga-42b989257/" target="_blank">LinkedIn</a>
+    </footer>
+
+    <script>
+        // Função para mostrar o formulário de atualização ao clicar no botão "Atualizar"
+        function showUpdateForm(id) {
+            const updateForm = document.getElementById(`updateForm_${id}`);
+            if (updateForm) {
+                updateForm.classList.add('active');
+            }
+        }
+
+        // Função para ocultar o formulário de atualização ao clicar no botão "Cancelar"
+        function hideUpdateForm(id) {
+            const updateForm = document.getElementById(`updateForm_${id}`);
+            if (updateForm) {
+                updateForm.classList.remove('active');
+            }
+        }
+    </script>
+</body>
+</html>
